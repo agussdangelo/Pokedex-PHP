@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="style.css">
 
     
@@ -45,7 +46,38 @@
 
 <!-- Contenido principal para mostrar el pokemon -->
 <div class="container">
+    <form action="" method="post" class="search-form">
+        <input type="text" name="busqueda" placeholder="Buscar Pokemon por nombre, tipo o numero">
+        <button type="submit">Buscar</button>
+    </form>
 
+    <div class="w3-margin-top">
+        <?php
+        require_once 'ListadoPokemon.php';
+        require_once 'tablaTipos.php';
+        echo "<div class='w3-row-padding'>";
+
+        foreach($_SESSION['resultadoBusqueda'] as $fila){
+            echo "<div class='w3-quarter'>";
+            echo "<div class='w3-card'>";
+            echo "<a href='mostrar_pokemon.php?numero=" . $fila["Numero"] . "' class='w3-hover-opacity'>"; //link prueba
+            echo "<img src='" . $fila["Imagen"] . "' alt='Pokemon' style='max-width:100%; max-height:100%;'>";
+            echo "</a>";
+            echo "<div class='w3-container'>";
+            echo "<h2>" . $fila["Nombre"] . "</h2>";
+            echo "<p>Numero: " . $fila["Numero"] . "</p>";
+            tablaTipos($fila["Tipo"]);
+            echo "</div>";
+            echo "</div>";
+            echo "</div>";
+        }
+        if(isset($_SESSION['errorBusqueda'])) {
+            echo $_SESSION['errorBusqueda'];
+        }
+
+        echo "</div>";
+        ?>
+    </div>
 </div>
 
 </body>
