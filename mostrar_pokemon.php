@@ -2,7 +2,7 @@
 session_start();
 
 if(isset($_GET["numero"])){
-    $conexion = mysqli_connect("localhost", "root", "", "pokedex pw2");
+    $conexion = mysqli_connect("127.0.0.1", "pokedex_user", "pokedex123", "pokedex", 3307);
 
     if(!$conexion){
         die("Conexion fallida: " . mysqli_connect_error());
@@ -36,7 +36,7 @@ if(isset($_GET["numero"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 
 
     <!-- Logo -->
@@ -50,7 +50,7 @@ if(isset($_GET["numero"])){
 
 <!-- Encabezado -->
 <header>
-    <img src="../img/logo.png" alt="Logo" class="header-logo">
+    <img src="img/logo.png" alt="Logo" class="header-logo">
     <h1>POKÉDEX</h1>
 
     <form action="" method="POST" class="login-form">
@@ -84,7 +84,7 @@ if(isset($_SESSION['pokemonMostrado'])) {
 
     $numeroPokemon = strval($pokemon["Numero"]);
     $numeroPokemon = str_pad($numeroPokemon, 3, "0", STR_PAD_LEFT);
-    $rutaImagen = "/img/" . $numeroPokemon . ".png";
+    $rutaImagen = "img/" . $numeroPokemon . ".png";
 
     echo "<div class='w3-card'>";
     echo "<div class='w3-container'>";
