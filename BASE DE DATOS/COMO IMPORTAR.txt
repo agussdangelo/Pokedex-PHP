@@ -1,0 +1,5 @@
+PARA IMPORTAR LA BASE DE DATOS VAN A IR A
+https://localhost/phpmyadmin
+
+Luego de esto van a crear una nueva base de datos y la van a llamar pokedex pw2 (porque la conexion en los archivos .php esta con este nombre)
+Luego van a darle importar y seleccionan el archivo pokedex_pw2.sql y ya tendrian importado la base de datos con los pokemones
