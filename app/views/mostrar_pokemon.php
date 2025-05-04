@@ -36,7 +36,7 @@ if(isset($_GET["numero"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="../../public/css/style.css">
 
 
     <!-- Logo -->
@@ -50,29 +50,29 @@ if(isset($_GET["numero"])){
 
 <!-- Encabezado -->
 <header>
-    <img src="img/logo.png" alt="Logo" class="header-logo">
+    <img src="../../public/img/logo.png" alt="Logo" class="header-logo">
     <h1>POKÉDEX</h1>
 
-    <form action="" method="POST" class="login-form">
-        <label><b>Usuario</b></label>
-        <input type="text" name="username" placeholder="Ingrese su nombre de usuario">
-        <label><b>Contraseña</b></label>
-        <input type="password" name="password" placeholder="Ingrese su contraseña">
-        <button type="submit">Iniciar Sesión</button>
-        <?php
-        require_once 'login.php';
-
-        if (isset($_POST['username']) && isset($_POST['password'])) {
-            inicioSesion($_POST['username'], $_POST['password']);
-            if (isset($_SESSION['errorLogin'])) {
-                echo "<div class='error-msg'>" . $_SESSION['errorLogin'] . "</div>";
-            } else {
-                header('Location: indexAdmin.php');
-                exit();
-            }
-        }
-        ?>
-    </form>
+<!--    <form action="" method="POST" class="login-form">-->
+<!--        <label><b>Usuario</b></label>-->
+<!--        <input type="text" name="username" placeholder="Ingrese su nombre de usuario">-->
+<!--        <label><b>Contraseña</b></label>-->
+<!--        <input type="password" name="password" placeholder="Ingrese su contraseña">-->
+<!--        <button type="submit">Iniciar Sesión</button>-->
+<!--        --><?php
+//        require_once 'login.php';
+//
+//        if (isset($_POST['username']) && isset($_POST['password'])) {
+//            inicioSesion($_POST['username'], $_POST['password']);
+//            if (isset($_SESSION['errorLogin'])) {
+//                echo "<div class='error-msg'>" . $_SESSION['errorLogin'] . "</div>";
+//            } else {
+//                header('Location: indexAdmin.php');
+//                exit();
+//            }
+//        }
+//        ?>
+<!--    </form>-->
 </header>
 
 <div class="w3-container">
@@ -84,7 +84,7 @@ if(isset($_SESSION['pokemonMostrado'])) {
 
     $numeroPokemon = strval($pokemon["Numero"]);
     $numeroPokemon = str_pad($numeroPokemon, 3, "0", STR_PAD_LEFT);
-    $rutaImagen = "img/" . $numeroPokemon . ".png";
+    $rutaImagen = "../../public/img/" . $numeroPokemon . ".png";
 
     echo "<div class='w3-card'>";
     echo "<div class='w3-container'>";
