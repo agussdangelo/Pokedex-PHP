@@ -103,6 +103,7 @@ if(isset($_SESSION['pokemonMostrado'])) {
     }
 
     echo "<p>Descripcion: " . $pokemon["Descripcion"] . "</p>";
+    echo "<a href='/Pokedex-PHP/index.php'>Volver</a> ";
     echo "</div>";
     echo "</div>";
 }

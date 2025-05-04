@@ -32,3 +32,108 @@ function inicioSesion($usuario, $contrasenia)
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white; /* Fondo blanco */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 400px;
+            background-color: #fff;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            background-color: #d32f2f; /* Botones rojos */
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #cc0000; /* Cambio de color al pasar el mouse */
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 75%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input:focus {
+            border-color: red; /* Resalta el borde cuando el campo está enfocado */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Iniciar Sesión</h2>
+
+    <!-- Formulario de Inicio de Sesión -->
+    <form action="/Pokedex-PHP/index.php" method="POST">
+        <div class="form-group">
+            <input type="text" name="username" placeholder="Usuario" required>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Contraseña" required>
+        </div>
+        <button type="submit" class="btn">Iniciar Sesión</button>
+    </form>
+
+    <!-- Formulario de Registro -->
+    <form action="register.php" method="POST">
+        <button type="submit" class="btn">Registrarse</button>
+    </form>
+
+    <!-- Mostrar error si no se loguea correctamente -->
+    <?php
+    if (isset($_SESSION['errorLogin'])) {
+        echo "<div class='error-msg'>" . $_SESSION['errorLogin'] . "</div>";
+    }
+    ?>
+</div>
+
+</body>
+</html>
+
