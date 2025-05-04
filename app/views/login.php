@@ -111,7 +111,7 @@ function inicioSesion($usuario, $contrasenia)
     <h2>Iniciar Sesión</h2>
 
     <!-- Formulario de Inicio de Sesión -->
-    <form action="/Pokedex-PHP/index.php" method="POST">
+    <form action="../../index.php" method="POST">
         <div class="form-group">
             <input type="text" name="username" placeholder="Usuario" required>
         </div>

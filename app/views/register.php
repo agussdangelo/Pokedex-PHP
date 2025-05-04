@@ -1,7 +1,6 @@
 <?php
 $pdo = require_once __DIR__ . '/../../repo/Database.php';
 
-
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -67,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="text-center mt-3">
-            <a href="../../index.php">¿Ya tenés una cuenta? Iniciar sesión</a>
+            <a href="login.php">¿Ya tenés una cuenta? Iniciar sesión</a>
         </div>
 
     </div>

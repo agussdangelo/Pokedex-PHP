@@ -90,3 +90,20 @@ header h1 {
     max-width: 100%;
     height: auto;
 }
+
+.hover-box {
+    transition: all 0.3s ease; /* Definimos una transición suave */
+}
+
+.hover-box:hover {
+    background-color: #fff; /* Fondo blanco al hacer hover */
+}
+
+.hover-link {
+    transition: color 0.3s ease; /* Transición suave para el color */
+}
+
+.hover-box:hover .hover-link {
+    color: red !important; /* Cambia el texto a rojo al hacer hover */
+}
+
