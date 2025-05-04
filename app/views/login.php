@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 function inicioSesion($usuario, $contrasenia)
 {
-    $conexion = mysqli_connect("localhost", "root", "", "pokedex pw2");
+    $conexion = mysqli_connect("127.0.0.1", "pokedex_user", "pokedex123", "pokedex", 3307);
 
     if (!$conexion) {
         die("Falla en la conexion: " . mysqli_connect_error());

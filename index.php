@@ -18,29 +18,37 @@
 
 <!-- Encabezado -->
 <header>
-    <img src="img/logo.png" alt="Logo" class="header-logo">
+    <img src="public/img/logo.png" alt="Logo" class="header-logo">
     <h1>POKÉDEX</h1>
 
-    <form action="" method="POST" class="login-form">
-        <label><b>Usuario</b></label>
-        <input type="text" name="username" placeholder="Ingrese su nombre de usuario">
-        <label><b>Contraseña</b></label>
-        <input type="password" name="password" placeholder="Ingrese su contraseña">
-        <button type="submit">Iniciar Sesión</button>
-        <?php
-            require_once 'login.php';
+<!--    <form action="" method="POST" class="login-form">-->
+<!--        <label><b>Usuario</b></label>-->
+<!--        <input type="text" name="username" placeholder="Ingrese su nombre de usuario">-->
+<!--        <label><b>Contraseña</b></label>-->
+<!--        <input type="password" name="password" placeholder="Ingrese su contraseña">-->
+<!--        <button type="submit">Iniciar Sesión</button>-->
+<!--        --><?php
+//            require_once 'login.php';
+//
+//            if (isset($_POST['username']) && isset($_POST['password'])) {
+//                inicioSesion($_POST['username'], $_POST['password']);
+//                if (isset($_SESSION['errorLogin'])) {
+//                    echo "<div class='error-msg'>" . $_SESSION['errorLogin'] . "</div>";
+//                } else {
+//                    header('Location: indexAdmin.php');
+//                    exit();
+//                }
+//            }
+//        ?>
+<!--    </form>-->
+    <div>
+        <a href="app/views/login.php">Iniciar Sesion</a>
+    </div>
 
-            if (isset($_POST['username']) && isset($_POST['password'])) {
-                inicioSesion($_POST['username'], $_POST['password']);
-                if (isset($_SESSION['errorLogin'])) {
-                    echo "<div class='error-msg'>" . $_SESSION['errorLogin'] . "</div>";
-                } else {
-                    header('Location: indexAdmin.php');
-                    exit();
-                }
-            }
-        ?>
-    </form>
+    <div>
+        <a href="app/views/register.php">Registrarse</a>
+    </div>
+
 </header>
 
 <!-- Contenido principal para mostrar el pokemon -->
@@ -52,14 +60,14 @@
 
     <div class="w3-margin-top">
         <?php
-        require_once 'ListadoPokemon.php';
-        require_once 'tablaTipos.php';
+        require_once 'app/views/ListadoPokemon.php';
+        require_once 'app/views/tablaTipos.php';
         echo "<div class='w3-row-padding'>";
 
         foreach($_SESSION['resultadoBusqueda'] as $fila){
             echo "<div class='w3-quarter'>";
             echo "<div class='w3-card'>";
-            echo "<a href='mostrar_pokemon.php?numero=" . $fila["Numero"] . "'class='w3-hover-opacity'>"; //link prueba
+            echo "<a href='app/views/mostrar_pokemon.php?numero=" . $fila["Numero"] . "'class='w3-hover-opacity'>"; //link prueba
             echo "<img src='" . $fila["Imagen"] . "' alt='Pokemon' style='max-width:100%; max-height:100%;'>";
             echo "</a>";
             echo "<div class='w3-container'>";
