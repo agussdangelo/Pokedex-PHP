@@ -47,6 +47,7 @@
         <?php
         require_once 'app/views/ListadoPokemon.php';
         require_once 'app/views/tablaTipos.php';
+
         echo "<div class='w3-row-padding'>";
 
         foreach($_SESSION['resultadoBusqueda'] as $fila){
@@ -58,7 +59,7 @@
             echo "<div class='w3-container mb-3'>";
             echo "<h2>" . $fila["Nombre"] . "</h2>";
             echo "<p>Numero: " . $fila["Numero"] . "</p>";
-            tablaTipos($fila["Tipo"]);
+            echo "<iframe src='app/views/renderizarTipo.php?tipo=" . $fila["Tipo"] . "' style='border: none; height: 50px; width: auto;' scrolling='no'></iframe>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
