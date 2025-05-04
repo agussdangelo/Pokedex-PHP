@@ -1,8 +1,8 @@
 <?php
 
 if(isset($_POST["busqueda"])){
-
-    $conexion = mysqli_connect("127.0.0.1", "pokedex_user", "pokedex123", "pokedex", 3307);
+    unset($_SESSION['errorBusqueda']);
+    $conexion = mysqli_connect("localhost", "root", "", "pokedex pw2");
 
     if(!$conexion){
         die("Conexion fallida: " . mysqli_connect_error());
@@ -21,13 +21,14 @@ if(isset($_POST["busqueda"])){
         $_SESSION['errorBusqueda'] = $error;
     }
 
+
     $_SESSION['resultadoBusqueda'] = array();
     while($fila = mysqli_fetch_assoc($resultado)){
         $_SESSION['resultadoBusqueda'][] = $fila;
     }
 }else{
 
-    $conexion = mysqli_connect("127.0.0.1", "pokedex_user", "pokedex123", "pokedex", 3307);
+    $conexion = mysqli_connect("localhost", "root", "", "pokedex pw2");
 
 
     if(!$conexion){

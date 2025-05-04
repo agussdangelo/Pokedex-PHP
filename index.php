@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="style.css">
+
     
     <!-- Logo -->
     <style>
@@ -18,7 +19,7 @@
 
 <!-- Encabezado -->
 <header>
-    <img src="img/logo.png" alt="Logo" class="header-logo">
+    <img src="../img/logo.png" alt="Logo" class="header-logo">
     <h1>POKÉDEX</h1>
 
     <form action="" method="POST" class="login-form">
@@ -59,7 +60,7 @@
         foreach($_SESSION['resultadoBusqueda'] as $fila){
             echo "<div class='w3-quarter'>";
             echo "<div class='w3-card'>";
-            echo "<a href='mostrar_pokemon.php?numero=" . $fila["Numero"] . "'class='w3-hover-opacity'>"; //link prueba
+            echo "<a href='mostrar_pokemon.php?numero=" . $fila["Numero"] . "' class='w3-hover-opacity'>"; //link prueba
             echo "<img src='" . $fila["Imagen"] . "' alt='Pokemon' style='max-width:100%; max-height:100%;'>";
             echo "</a>";
             echo "<div class='w3-container'>";
