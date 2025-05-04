@@ -17,7 +17,9 @@ if(isset($_POST['nombre']) && isset($_POST['numero']) && isset($_POST['tipo']) &
     <title>Modificar Pokemon</title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../public/css/style.css">
     <style>
         .form-container {
             margin-top: 20px;
@@ -65,8 +67,8 @@ if(isset($_POST['nombre']) && isset($_POST['numero']) && isset($_POST['tipo']) &
 <body>
 
 <header>
-    <img src="img/logo.png" alt="Logo" class="header-logo">
-    <h1>POKÉDEX</h1>
+    <img src="../../public/img/logo.png" alt="Logo" class="header-logo">
+    <a href="../../index.php" class="text-decoration-none text-white"><h1>POKÉDEX</h1></a>
 
     <form action="" method="POST" class="login-form">
         <label><b>Usuario</b></label>
@@ -75,7 +77,7 @@ if(isset($_POST['nombre']) && isset($_POST['numero']) && isset($_POST['tipo']) &
         <input type="password" name="password" placeholder="Ingrese su contraseña">
         <button type="submit">Iniciar Sesión</button>
         <?php
-        require_once 'login.php';
+        require_once '../../../login.php';
 
         if (isset($_POST['username']) && isset($_POST['password'])) {
             inicioSesion($_POST['username'], $_POST['password']);

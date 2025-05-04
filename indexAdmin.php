@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="public/css/style.css">
 
 
     <!-- Logo -->
@@ -19,8 +21,8 @@
 
 <!-- Encabezado -->
 <header>
-    <img src="../img/logo.png" alt="Logo" class="header-logo">
-    <h1>POKÉDEX</h1>
+    <img src="public/img/logo.png" alt="Logo" class="header-logo">
+    <a href="index.php" class="text-decoration-none text-white"><h1>POKÉDEX</h1></a>
 
     <form action="" method="POST" class="login-form">
         <label><b>Usuario</b></label>
@@ -55,7 +57,7 @@
 
             echo "<div class='w3-row-padding'>";
             foreach($_SESSION['resultadoBusqueda'] as $fila){
-                echo "<form action='modificar.php' method='POST'>";
+                echo "<form action='app/views/modificar.php' method='POST'>";
                 echo "<div class='w3-quarter'>";
                 echo "<div class='w3-card'>";
                 echo "<a href='mostrar_pokemon.php?numero=" . $fila["Numero"] . "' class='w3-hover-opacity'>"; //link prueba
