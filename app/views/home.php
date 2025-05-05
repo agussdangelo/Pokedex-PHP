@@ -24,8 +24,11 @@ if (isset($_GET['reset']) && $_GET['reset'] == 1) {
             <div class="container-fluid mt-2">
                 <div class="d-flex justify-content-between  w-100 mb-4">
                     <div class="d-flex align-items-center me-2  ">
+                        <a href="../../index.php">
                         <img src="/POKEDEX-PHP/public/assets/pokebola.png" alt="pokebola" width="44" height="44" class="me-2">
                         <img src="/POKEDEX-PHP/public/assets/pokemon_logo.svg" alt="titulo-pokemon" height="44" class="me-2">
+                        </a>
+    
                     </div>
                     <h1 class="h2 text-white text-center m-0 ps-5 pe-5">Pokedex</h1>
                     <div class="d-flex justify-content-around w-30">

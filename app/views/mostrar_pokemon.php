@@ -74,9 +74,10 @@ require_once 'tablaTipos.php';
 if(isset($_SESSION['pokemonMostrado'])) {
     $pokemon = $_SESSION['pokemonMostrado'];
 
-    $numeroPokemon = strval($pokemon["Numero"]);
-    $numeroPokemon = str_pad($numeroPokemon, 3, "0", STR_PAD_LEFT);
-    $rutaImagen = "../../public/img/" . $numeroPokemon . ".png";
+    //$numeroPokemon = strval($pokemon["Numero"]);
+    //$numeroPokemon = str_pad($numeroPokemon, 3, "0", STR_PAD_LEFT);
+    //$rutaImagen = "../../public/img/" . $pokemon["Imagen"];
+    $rutaImagen = "../../public/" . $pokemon["Imagen"];
 
     echo "<div class='w3-card'>";
     echo "<div class='w3-container'>";

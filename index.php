@@ -26,13 +26,29 @@
     <a href="index.php" class="text-decoration-none text-white"><h1>POKÉDEX</h1></a>
 
     <div class="d-flex justify-content-between flex-column pr-2">
-        <div class="w-100 border border-2 border-white p-2 hover-box">
-            <a href="app/views/login.php" class="text-white text-decoration-none hover-link">Iniciar Sesion</a>
-        </div>
+        <?php
+        session_start();
+        if (isset($_SESSION['usuario'])) {
+            // Usuario logueado: mostrar nombre y "Cerrar sesión"
+            echo '<div class="w-100 border border-2 border-white p-2 hover-box">';
+            echo '<a href="app/views/home.php" class="text-white">Hola,'. htmlspecialchars($_SESSION['usuario']) . ' </a>';
+            //echo '<span class="text-white">Hola, ' . htmlspecialchars($_SESSION['usuario']) . '!</span>';
+            echo '</div>';
+            echo '<div class="w-100 border border-2 border-white mt-3 p-2 hover-box">';
+            echo '<a href="app/views/logout.php" class="text-white text-decoration-none hover-link">Cerrar sesión</a>';
+            echo '</div>';
+            
+        } else {
+            // Usuario no logueado: mostrar "Iniciar sesión" y "Registrarse"
+            echo '<div class="w-100 border border-2 border-white p-2 hover-box">';
+            echo '<a href="app/views/login.php" class="text-white text-decoration-none hover-link">Iniciar Sesion</a>';
+            echo '</div>';
 
-        <div class="w-100 border border-2 border-white mt-3 p-2 hover-box">
-            <a href="app/views/register.php" class="text-white text-decoration-none hover-link">Registrarse</a>
-        </div>
+            echo '<div class="w-100 border border-2 border-white mt-3 p-2 hover-box">';
+            echo '<a href="app/views/register.php" class="text-white text-decoration-none hover-link">Registrarse</a>';
+            echo '</div>';
+        }
+        ?>
     </div>
 </header>
 
