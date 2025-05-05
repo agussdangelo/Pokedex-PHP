@@ -1,9 +1,10 @@
 <?php
 session_start();
-/*if (!isset($_SESSION['usuario_id'])) {
-    header('Location: /index.php');
-    exit;
-}*/
+
+if (isset($_GET['reset']) && $_GET['reset'] == 1) {
+    unset($_SESSION['resultadoBusqueda']);
+    unset($_SESSION['errorBusqueda']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.3/zephyr/bootstrap.min.css"
         integrity="sha512-CWXb9sx63+REyEBV/cte+dE1hSsYpJifb57KkqAXjsN3gZQt6phZt7e5RhgZrUbaNfCdtdpcqDZtuTEB+D3q2Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <title>Panel de usuario</title>
 </head>
 
@@ -35,10 +36,7 @@ session_start();
                             }else{
                                 header('Location: ../../index.php');
                                 exit;
-                            }
-
-                            
-                            
+                            }       
                         ?> <!--Checkea pregunta si existe la variable-->
                         
                         
@@ -46,10 +44,10 @@ session_start();
 
                 </div>
                 <div class="w-100">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search"
-                            placeholder="Ingrese el nombre, tipo o numero de pokemon..." aria-label="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Que es este pokemon?</button>
+                    <form action="" method="post" class="d-flex">
+                        <input id="busqueda" name ="busqueda" class="form-control me-2" type="text" placeholder="Ingrese el nombre, tipo o numero de pokemon..." aria-label="Search">
+                        <button class="btn btn-secondary my-1 my-sm-0" style="padding: 4px 7px;" type="submit">Que es este pokemon?</button>
+                        
                     </form>
                 </div>
             </div>
@@ -72,12 +70,26 @@ session_start();
                         <div class="col">Acciones</div>
                     </div>
                     <?php 
-                    /*define('PROJECT_ROOT', dirname(dirname(__DIR__)));
-                    require_once PROJECT_ROOT . '/tablaTipos.php';*/
                     require_once 'tablaTipos.php';
+                    require_once 'ListadoPokemon.php';
                     require_once 'obtenerPokemonesDB.php';
-                    $pokemones_db = obtenerPokemonesDB();
-                    while($fila = mysqli_fetch_array($pokemones_db)){
+                    //var_dump($_SESSION['resultadoBusqueda'] );
+                    
+                    $pokemonesAMostrar= [];
+
+                    if(isset($_SESSION['resultadoBusqueda']) && !empty($_SESSION['resultadoBusqueda'])) {
+                        $pokemonesAMostrar= $_SESSION['resultadoBusqueda'];
+                        unset($_SESSION['errorBusqueda']);    
+                        
+                    }else{
+                        $pokemones_db = obtenerPokemonesDB();
+                        $pokemonesAMostrar = [];
+                        
+                        while($fila = mysqli_fetch_array($pokemones_db)) {
+                            $pokemonesAMostrar[] = $fila;
+                        }
+                    }
+                    foreach($pokemonesAMostrar as $fila){
                         echo '<div class="row">';
                         echo '<div class="col" style = "width: 10%; height:20%">';
                         echo "<img src='/Pokedex-PHP/public" . $fila["Imagen"] . "' alt='Pokemon' style='height: 10em;;'>";
@@ -89,11 +101,19 @@ session_start();
                         echo '<div class="col">'.$fila['Nombre'].'</div>';
                         echo '<div class="col">'.$fila['Descripcion'].'</div>';
                         echo '<div class="col">';
-                        echo '<button type="button" class="btn btn-danger me-1">Eliminar</button>';
-                        echo '<button type="button" class="btn btn-dark">Editar</button>';
+                        echo '<button type="button" class="btn btn-danger me-1 btn-eliminar-pokemon" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal" data-pokemon-id="' . $fila['Identifcador'] . '" data-pokemon-nombre="' . htmlspecialchars($fila['Nombre']) . '">Eliminar</button>';
+                        echo '<a href="crear-pokemon.php?id=' . $fila['Identifcador'] . '&nombre=' . urlencode($fila['Nombre']) . '&tipo=' . urlencode($fila['Tipo']) . '&numero=' . $fila['Numero'] . '&descripcion=' . urlencode($fila['Descripcion']) . '&imagen=' . urlencode($fila['Imagen']) . '" class="btn btn-dark">Editar</a>';
                         echo'</div>';
                         echo '</div>';
                     }
+                    
+                    
+                    if(isset($_SESSION['errorBusqueda'])) {
+                        echo $_SESSION['errorBusqueda'];
+                        
+                    }
+
+
                     ?>
                 </div>
                 <a class="btn btn-lg btn-danger w-100" href="crear-pokemon.php">Nuevo pokemon</a>
@@ -101,5 +121,47 @@ session_start();
             </div>
         </div>
     </main>
+    <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmarEliminarModalLabel">Confirmar Eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar a <span id="pokemon-a-eliminar"></span>? Esta acción es irreversible.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <a href="#" id="enlace-eliminar" class="btn btn-danger">Eliminar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const botonesEliminar = document.querySelectorAll('.btn-eliminar-pokemon');
+  const enlaceEliminar = document.getElementById('enlace-eliminar');
+  const nombrePokemonEliminar = document.getElementById('pokemon-a-eliminar');
+
+  botonesEliminar.forEach(boton => {
+    boton.addEventListener('click', function() {
+      const pokemonId = this.dataset.pokemonId;
+      const pokemonNombre = this.dataset.pokemonNombre;
+      enlaceEliminar.href = 'eliminar-pokemon.php?id=' + pokemonId;
+      nombrePokemonEliminar.textContent = pokemonNombre;
+    });
+  });
+</script>
+    <script>
+       const inputBusqueda = document.getElementById('busqueda');
+
+        inputBusqueda.addEventListener('input', function(){
+            if(this.value === ''){
+                window.location.href = 'home.php?reset=1';
+            }
+        });
+
+    </script>
 </body>
 </html>

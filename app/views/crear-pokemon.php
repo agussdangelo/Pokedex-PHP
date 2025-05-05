@@ -4,6 +4,23 @@
  $tipo_pokemones_db = obtenerTiposPokemones();
 var_dump($tipo_pokemones_db);*/
 session_start();
+
+$id = '';
+$nombre = '';
+$tipo = '';
+$numero = '';
+$descripcion = '';
+$imagen = '';
+
+
+if (isset($_GET['id'])) {
+  $id = $_GET['id'];
+    $nombre = isset($_GET['nombre']) ? urldecode($_GET['nombre']) : '';
+    $tipo = isset($_GET['tipo']) ? urldecode($_GET['tipo']) : '';
+    $numero = isset($_GET['numero']) ? $_GET['numero'] : '';
+    $descripcion = isset($_GET['descripcion']) ? urldecode($_GET['descripcion']) : '';
+    $imagen = isset($_GET['imagen']) ? urldecode($_GET['imagen']) : '';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +32,7 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.3/zephyr/bootstrap.min.css"
     integrity="sha512-CWXb9sx63+REyEBV/cte+dE1hSsYpJifb57KkqAXjsN3gZQt6phZt7e5RhgZrUbaNfCdtdpcqDZtuTEB+D3q2Q=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <title>Document</title>
+  <title><?php echo isset($_GET['id']) ? 'Editar Pokemon' : 'Crear Nuevo Pokemon'; ?></title>
 </head>
 
 <body class="min-vh-100 bg-light">
@@ -34,13 +51,7 @@ session_start();
           </div>
 
         </div>
-        <div class="w-100">
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Ingrese el nombre, tipo o numero de pokemon..."
-              aria-label="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Que es este pokemon?</button>
-          </form>
-        </div>
+        
       </div>
     </nav>
   </header>
@@ -50,58 +61,69 @@ session_start();
     <div class="card shadow-lg w-75 mt-3">
       <div class="row g-0">
         <!-- Left side align-items-center-->
-        <div
-          class="col-md-5 left-panel d-flex flex-column justify-content-center align-items-center text-white text-center">
-          <img id="previewImage" src="#" alt="Image Preview" class="img-thumbnail mt-3"
-            style="max-width: 300px; display: none;">
+        <div class="col-md-5 left-panel d-flex flex-column justify-content-center align-items-center text-white text-center">
+        <img id="previewImage" 
+         src="<?php echo !empty($imagen) ? '/POKEDEX-PHP/public' . htmlspecialchars($imagen) : '#'; ?>" 
+         alt="Image Preview" 
+         class="img-thumbnail mt-3"
+         style="max-width: 300px; <?php echo !empty($imagen) ? 'display: block;' : 'display: none;'; ?>">
         </div>
 
         <!-- Right side -->
         <div class="col-md-7 p-5">
 
-          <h4 class="mb-3">Crear un nuevo pokemon</h4>
+          <h4 class="mb-3"><?php echo isset($_GET['id']) ? 'Editar Pokemon' : 'Crear Nuevo Pokemon'; ?></h4>
 
-          <form method="post" action="procesar-creacion-pokemon.php" enctype="multipart/form-data">
+          <form method="post" action="<?php echo isset($_GET['id']) ? 'procesar-edicion-pokemon.php' : 'procesar-creacion-pokemon.php'; ?>" enctype="multipart/form-data">
             <div class="row g-3">
+            <?php if (!empty($id)): ?>
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
+        <?php endif; ?>
+
               <div class="col-md-12">
                 <label for="numero" class="form-label mt-2">Numero identificador</label>
-                <input type="number" name="numero" class="form-control" placeholder="Numero identificador">
+                <input type="number" name="numero" class="form-control" placeholder="Numero identificador" value="<?php echo htmlspecialchars($numero); ?>" required>
               </div>
 
               <div class="col-md-12">
                 <label for="nombreUsuario" class="form-label mt-2">Nombre</label>
-                <input type="text" name="nombre" class="form-control" placeholder="Nombre">
+                <input type="text" name="nombre" class="form-control" placeholder="Nombre" value="<?php echo htmlspecialchars($nombre); ?>" required>
               </div>
 
               <div class="col-md-12">
                 <label for="exampleSelect1" class="form-label mt-2">Tipo de pokemon</label>
-                <select class="form-select" id="exampleSelect1" name="tipo_pokemon">
-                  <option value="" disabled selected>Seleccione un tipo de pokemon</option>
-                  <?php
+                <select class="form-select" id="exampleSelect1" name="tipo_pokemon" value="<?php echo htmlspecialchars($tipo); ?>" required>
+                <option value="" disabled <?php if (empty($tipo)) echo 'selected'; ?>>Seleccione un tipo de pokemon</option>
+                <?php
                   require_once 'obtenerTiposPokemones.php';
                   $tipo_pokemones_db = obtenerTiposPokemones();
-
                   while($fila = mysqli_fetch_array($tipo_pokemones_db)){
-                    echo "<option value=".$fila['Identificador'].">".$fila['Nombre']."</option>";
+                    $selected = '';
+                    if (!empty($tipo) && $tipo == $fila['Identificador']) {
+                      $selected = 'selected';
+                    }
+                    echo "<option value='".$fila['Identificador']."' ".$selected.">".$fila['Nombre']."</option>";
                   }
-
-                  ?>
-                
+                ?>
                 </select>
               </div>
             </div>
 
             <div>
               <label for="exampleTextarea" class="form-label mt-2">Descrpcion</label>
-              <textarea class="form-control" name="descripcion" id="exampleTextarea" rows="3"></textarea>
+              <textarea class="form-control" name="descripcion" id="exampleTextarea" rows="3"><?php echo htmlspecialchars($descripcion); ?></textarea>
             </div>
 
             <div class="col-md-12">
               <label for="formFile" class="form-label mt-2">Imagen del pokemon</label>
               <input class="form-control" type="file" name="img_pokemon" id="formFile" accept="image/*">
+              <?php if (!empty($imagen)): ?>
+                <p>Imagen actual: <?php echo htmlspecialchars(basename($imagen)); ?></p>
+                <input type="hidden" name="imagen_actual" value="<?php echo htmlspecialchars($imagen); ?>">
+            <?php endif; ?>
             </div>
 
-            <button type="submit" class="btn btn-danger w-100 mt-3 py-2">Dar de alta</button>
+            <button type="submit" class="btn btn-danger w-100 mt-3 py-2"><?php echo isset($_GET['id']) ? 'Guardar Cambios' : 'Dar de alta'; ?></button>
 
           </form>
 

@@ -17,7 +17,7 @@ function obtenerPokemonesDB(){
                                 $config["puerto"]) or die("Error al conectar con la base de datos");//recomendable manejar errores para que no se cierre a lo brusco
 
     //obtener datos
-    $sql = "SELECT * FROM pokemon";
+    $sql = "SELECT * FROM pokemon ORDER BY Identifcador ASC";
 
     $datos =mysqli_query($database, $sql); 
 

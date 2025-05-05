@@ -29,8 +29,8 @@ if (isset($_FILES['img_pokemon']) && $_FILES['img_pokemon']['error'] == UPLOAD_E
     $nombreFinal = basename($_FILES['img_pokemon']['name']);
 
     $rutaCarpetaImg = PROJECT_ROOT . '/public/img';
-    $destino_fisico = $rutaCarpetaImg . '/' . $nombreFinal; // Ruta física para guardar
-    $destino_web = '/Pokedex-PHP/public/img/' . $nombreFinal;   // Ruta web para mostrar
+    $destino_fisico = $rutaCarpetaImg . '/' . $nombreFinal; 
+    $destino_web = '/Pokedex-PHP/public/img/' . $nombreFinal;  
 
     var_dump($destino_fisico); //testeando
 
@@ -43,8 +43,6 @@ if (isset($_FILES['img_pokemon']) && $_FILES['img_pokemon']['error'] == UPLOAD_E
     }
 
     if (move_uploaded_file($nombreTemporal, $destino_fisico)) {
-        /*echo "Imagen subida exitosamente: <a href='" . htmlspecialchars($destino_web) . "'>" . htmlspecialchars($nombreFinal) . "</a>";
-        echo "<br><img src='" . htmlspecialchars($destino_web) . "' style='max-width:300px'>";*/
         $url_img ='/img'.'/'.$nombreFinal;
 
     } else {
@@ -85,12 +83,11 @@ $ruta_config = dirname(dirname(__DIR__)) . "/repo/config.ini";
         $url_destino = "/Pokedex-PHP/app/views/home.php";
         
         // Realizar la redirección
+        unset($_SESSION['resultadoBusqueda']);
+        unset($_SESSION['errorBusqueda']);
+
         header("Location: " . $url_destino);
         exit(); //detener la ejecución del script actual
-
-        /*echo "Pokemon guardado exitosamente.";
-        $ultimo_id = mysqli_insert_id($database);
-        echo " ID del nuevo registro: " . $ultimo_id;*/
     } else {
         echo "Error al guardar el pokemon: " . mysqli_error($database);
     }
