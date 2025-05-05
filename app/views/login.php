@@ -19,16 +19,36 @@ function inicioSesion($usuario, $contrasenia)
     $usuario = mysqli_real_escape_string($conexion, $usuario);
     $contrasenia = mysqli_real_escape_string($conexion, $contrasenia);
 
-    $consulta = "SELECT * FROM UsuariosAdministrador WHERE Usuario = '$usuario' AND Constrasenia = '$contrasenia'";
+    $consulta = "SELECT * FROM usuarios WHERE nombreUsuario = '$usuario'";
     $resultado = mysqli_query($conexion, $consulta);
 
     if (mysqli_num_rows($resultado) === 1) {
-        $_SESSION['usuario'] = $usuario;
-        unset($_SESSION['errorLogin']);
-        return true;
+
+        $fila = mysqli_fetch_assoc($resultado);
+        $hashGuardado = $fila['contrasenia']; //capturo la contrasenia
+
+        if(password_verify($contrasenia, $hashGuardado)){
+            $_SESSION['usuario'] = $usuario;
+            unset($_SESSION['errorLogin']);
+            return true;
+        }else{
+            $_SESSION['errorLogin'] = "<p style='color: red'>El usuario o contraseña son incorrectos</p>";
+            return false;
+        }
+        
     } else {
         $_SESSION['errorLogin'] = "<p style='color: red'>El usuario o contraseña son incorrectos</p>";
         return false;
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+   
+    if (inicioSesion($username, $password)) {
+        header('Location: ../../app/views/home.php');
+        exit;
     }
 }
 ?>
@@ -111,7 +131,7 @@ function inicioSesion($usuario, $contrasenia)
     <h2>Iniciar Sesión</h2>
 
     <!-- Formulario de Inicio de Sesión -->
-    <form action="../../index.php" method="POST">
+    <form action="../../app/views/login.php" method="POST">
         <div class="form-group">
             <input type="text" name="username" placeholder="Usuario" required>
         </div>

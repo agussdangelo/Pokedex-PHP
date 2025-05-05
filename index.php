@@ -17,7 +17,8 @@
     </style>
 </head>
 <body>
-
+<?php//testeando
+//echo password_hash('admin123', PASSWORD_DEFAULT);?>
 <!-- Encabezado -->
 <header>
     <img src="public/img/logo.png" alt="Logo" class="header-logo">

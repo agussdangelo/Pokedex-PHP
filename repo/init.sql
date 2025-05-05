@@ -1,7 +1,7 @@
 # CREATE TABLE usuarios (
 #                           id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 #                           nombreUsuario VARCHAR(50) NOT NULL UNIQUE,
-#                           contraseña VARCHAR(255) NOT NULL,
+#                           contrasenia VARCHAR(255) NOT NULL,
 #                           fechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 # );
 
@@ -23,13 +23,13 @@ USE pokedex;
 CREATE TABLE usuarios (
                           id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                           nombreUsuario VARCHAR(50) NOT NULL UNIQUE,
-                          contraseña VARCHAR(255) NOT NULL,
+                          contrasenia VARCHAR(255) NOT NULL,
                           fechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 7. Insertar un usuario de prueba (con contraseña hasheada)
-INSERT INTO usuarios (nombreUsuario, contraseña) VALUES (
+INSERT INTO usuarios (nombreUsuario, contrasenia) VALUES (
                                                             'admin',
-                                                            'admin123'
+                                                            '$2y$10$MgJ2nQIQkeZP4VeZOiL7P.PoVa13u4sGL26H9htXMVyJArGKXUmrC'
                                                         );
--- La contraseña de este usuario es: admin123
+-- La contraseña de este usuario es: admin123 esta hasheada con password_hash() php
