@@ -1,0 +1,17 @@
+.left-panel {
+    background-color: #b92327;
+    height: 100%;
+  }
+  
+  .left-panel h2 {
+    font-weight: bold;
+  }
+  
+  .w-48 {
+    width: 48%;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  

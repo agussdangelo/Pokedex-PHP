@@ -55,7 +55,7 @@
             echo "<div class='w3-quarter'>";
             echo "<div class='w3-card'>";
             echo "<a href='app/views/mostrar_pokemon.php?numero=" . $fila["Numero"] . "'class='w3-hover-opacity'>"; //link prueba
-            echo "<img src='" . $fila["Imagen"] . "' alt='Pokemon' style='max-width:100%; max-height:100%; padding: 10px;'>";
+            echo "<img src='/Pokedex-PHP/public" . $fila["Imagen"] . "' alt='Pokemon' style='max-width:100%; max-height:100%; padding: 10px;'>";
             echo "</a>";
             echo "<div class='w3-container mb-3'>";
             echo "<h2>" . $fila["Nombre"] . "</h2>";

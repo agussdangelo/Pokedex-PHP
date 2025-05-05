@@ -80,7 +80,7 @@ session_start();
                     while($fila = mysqli_fetch_array($pokemones_db)){
                         echo '<div class="row">';
                         echo '<div class="col" style = "width: 10%; height:20%">';
-                        echo "<img src='/Pokedex-PHP" . $fila["Imagen"] . "' alt='Pokemon' style='height: 10em;;'>";
+                        echo "<img src='/Pokedex-PHP/public" . $fila["Imagen"] . "' alt='Pokemon' style='height: 10em;;'>";
                         echo '</div>';
                         echo '<div class="col">';
                         tablaTipos($fila['Tipo']);
